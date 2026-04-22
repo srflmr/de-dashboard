@@ -1,0 +1,16 @@
+# Sensitive local config
+/db_config.php
+
+# Logs
+*.log
+
+# SQL dumps
+*.sql
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Internal Files
+/scripts/
+/docs/

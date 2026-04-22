@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - DE Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .main-content {
+            margin-left: 220px;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 40px 48px;
+        }
+        .help-section {
+            margin-bottom: 48px;
+        }
+        .help-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 20px;
+        }
+        .help-section p { color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 16px; }
+        .help-subsection { margin-left: 20px; margin-bottom: 24px; }
+        .help-subsection h3 { font-size: 15px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 10px; }
+        .help-subsection ul, .help-subsection ol { padding-left: 20px; color: var(--color-text-secondary); margin-bottom: 16px; }
+        .help-subsection li { margin-bottom: 8px; line-height: 1.5; }
+        .help-icon { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+        .step-box { background: var(--color-bg-secondary); padding: 16px; border-radius: var(--radius-md); margin: 12px 0; border: 1px solid var(--color-border); }
+        .step-number { display: inline-block; background: var(--color-text-primary); color: var(--color-bg-primary); width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-weight: 600; font-size: 12px; margin-right: 10px; }
+        .field-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+        .field-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--color-text-secondary); border-bottom: 2px solid var(--color-border); background: var(--color-bg-secondary); text-transform: uppercase; letter-spacing: 0.3px; }
+        .field-table td { padding: 10px 12px; border-bottom: 1px solid var(--color-border); vertical-align: top; color: var(--color-text-secondary); }
+        .field-table td:first-child { font-weight: 500; color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; white-space: nowrap; }
+        .field-table tr:last-child td { border-bottom: none; }
+        .req-badge { display: inline-flex; padding: 1px 7px; border-radius: var(--radius-pill); font-size: 10px; font-weight: 600; background: var(--color-critical-bg); color: var(--color-critical); white-space: nowrap; }
+        .opt-badge { display: inline-flex; padding: 1px 7px; border-radius: var(--radius-pill); font-size: 10px; font-weight: 600; background: var(--color-bg-secondary); color: var(--color-text-tertiary); white-space: nowrap; }
+        .info-box { background: var(--color-medium-bg); border-left: 3px solid var(--color-medium); padding: 12px 16px; border-radius: 0 var(--radius-md) var(--radius-md) 0; font-size: 13px; color: var(--color-text-secondary); margin: 12px 0; line-height: 1.6; }
+        .warn-box { background: var(--color-high-bg); border-left: 3px solid var(--color-high); padding: 12px 16px; border-radius: 0 var(--radius-md) var(--radius-md) 0; font-size: 13px; color: var(--color-text-secondary); margin: 12px 0; line-height: 1.6; }
+        .status-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+        .status-flow .arrow { color: var(--color-text-tertiary); font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar / TOC -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>Detection<br>Engineering</span>
+            </div>
+
+            <div class="sidebar-section" style="margin-top: 4px;">Quick Navigate</div>
+            <a href="index.html" class="sidebar-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home
+            </a>
+            <a href="index.php" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Go to Dashboard
+            </a>
+
+            <div class="sidebar-section" style="margin-top: 12px;">On This Page</div>
+            <a href="#overview" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Overview
+            </a>
+            <a href="#dashboard" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Dashboard
+            </a>
+            <a href="#managing-rules" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Detection Rules
+            </a>
+            <a href="#rule-fields" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                Rule Fields
+            </a>
+            <a href="#filtering-rules" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                Filtering Rules
+            </a>
+            <a href="#managing-settings" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15"></path></svg>
+                Settings
+            </a>
+            <a href="#rule-status-workflow" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                Status Workflow
+            </a>
+            <a href="#best-practices" class="sidebar-item">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Best Practices
+            </a>
+
+            <div class="sidebar-spacer"></div>
+            <div class="sidebar-footer">
+                &copy; <span id="current-year"></span> Detection Engineering
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="main-content">
+            <div class="breadcrumb" style="margin-bottom: 24px;">
+                <a href="index.html">Home</a>
+                <span class="separator">/</span>
+                <span>Documentation</span>
+            </div>
+
+            <h1 class="page-title" style="font-size: 28px; margin-bottom: 8px;">Documentation</h1>
+            <p style="color: var(--color-text-secondary); margin-bottom: 40px; font-size: 15px;">
+                User guide for the Detection Engineering Console — a centralized dashboard for managing SIEM detection rules across multiple customers and platforms.
+            </p>
+
+            <!-- Overview -->
+            <div id="overview" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    Overview
+                </h2>
+                <p>The console is organized into three main areas accessible from the sidebar:</p>
+
+                <div class="help-subsection">
+                    <h3>Dashboard</h3>
+                    <p>The home page. Displays a real-time summary of all detection rules — rule counts by status and severity, and a table of the 5 most recently modified rules.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Detection Rules</h3>
+                    <p>The main working area. Create, edit, delete, search, and filter all detection rules. Each rule is linked to a customer and SIEM platform via Settings.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Settings</h3>
+                    <p>Configure the reference data that rules depend on:</p>
+                    <ul>
+                        <li><strong>SIEM Platforms</strong> — Define which SIEM solutions are used (e.g., Elastic, Splunk, Microsoft Sentinel)</li>
+                        <li><strong>Customers</strong> — Create customer profiles and assign each to a SIEM platform</li>
+                    </ul>
+                    <div class="info-box">Set up SIEM Platforms and Customers <strong>before</strong> creating detection rules, as rules require both to be configured first.</div>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    Dashboard
+                </h2>
+                <p>The dashboard gives an at-a-glance view of your rule inventory without requiring any interaction.</p>
+
+                <div class="help-subsection">
+                    <h3>Rules by Status</h3>
+                    <p>Five stat cards showing rule counts: <strong>Total</strong>, <strong>Production</strong>, <strong>Testing</strong>, <strong>Draft</strong>, and <strong>Deprecated</strong>.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Rules by Severity</h3>
+                    <p>Four stat cards showing counts by severity level: <strong>Critical</strong>, <strong>High</strong>, <strong>Medium</strong>, and <strong>Low</strong>.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Recently Modified</h3>
+                    <p>A table showing the <strong>5 most recently modified rules</strong>, sorted by Modified Date descending. Columns: Rule Name, Customer, Platform, Severity, Status, Modified, Modified By.</p>
+                </div>
+            </div>
+
+            <!-- Detection Rules -->
+            <div id="managing-rules" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Detection Rules
+                </h2>
+
+                <div class="help-subsection">
+                    <h3>Adding a Rule</h3>
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>Go to Detection Rules</strong> — Click "Detection Rules" in the sidebar
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>Click "Add Rule"</strong> — Button at the top right
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>Fill in the form</strong> — Fields marked with <strong>*</strong> are required. See <a href="#rule-fields" style="color: var(--color-primary);">Rule Fields</a> for details.
+                    </div>
+                    <div class="step-box">
+                        <span class="step-number">4</span>
+                        <strong>Click "Save Rule"</strong> — Rule is saved and you are returned to the Detection Rules list
+                    </div>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Editing a Rule</h3>
+                    <p>Click the <strong>pencil icon</strong> on any row in the rules table. The form opens pre-filled with the current values. Make changes and click "Update Rule".</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Deleting a Rule</h3>
+                    <p>Click the <strong>trash icon</strong> on any row. A confirmation dialog will appear before deletion. This action cannot be undone.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Rules Table Columns</h3>
+                    <p>The table displays: No, Rule Name, Customer, Platform, Tactic, Technique, Severity, Status, Created, Modified, Created By, Modified By, and Actions. Dates are shown in human-readable format (e.g., "17 Apr 2026"). The table scrolls horizontally on smaller screens.</p>
+                </div>
+            </div>
+
+            <!-- Rule Fields -->
+            <div id="rule-fields" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+                    Rule Fields Reference
+                </h2>
+                <p>Complete reference for every field in the Add / Edit Rule form.</p>
+
+                <table class="field-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Customer</td>
+                            <td><span class="req-badge">Required</span></td>
+                            <td>The customer this rule is deployed for. Must be pre-configured in Settings → Customers.</td>
+                        </tr>
+                        <tr>
+                            <td>Rule Name</td>
+                            <td><span class="req-badge">Required</span></td>
+                            <td>A clear, descriptive name for the detection. Max 200 characters.</td>
+                        </tr>
+                        <tr>
+                            <td>Detection Logic</td>
+                            <td><span class="req-badge">Required</span></td>
+                            <td>The actual query or logic used in the SIEM to detect the threat (e.g., SPL for Splunk, KQL for Elastic/Sentinel).</td>
+                        </tr>
+                        <tr>
+                            <td>Created By</td>
+                            <td><span class="req-badge">Required</span></td>
+                            <td>Name or identifier of the person who created this rule. Used for audit trail.</td>
+                        </tr>
+                        <tr>
+                            <td>Modified By</td>
+                            <td><span class="req-badge">Required</span></td>
+                            <td>Name or identifier of the person who last modified this rule. Update this field whenever you edit the rule.</td>
+                        </tr>
+                        <tr>
+                            <td>MITRE Tactic</td>
+                            <td><span class="opt-badge">Optional</span></td>
+                            <td>ATT&amp;CK tactic this rule maps to. Options: Reconnaissance, Resource Development, Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command and Control, Exfiltration, Impact.</td>
+                        </tr>
+                        <tr>
+                            <td>MITRE Technique</td>
+                            <td><span class="opt-badge">Optional</span></td>
+                            <td>Technique ID from ATT&amp;CK, e.g., <code style="font-family: var(--font-mono); font-size: 12px;">T1078</code>. Max 100 characters.</td>
+                        </tr>
+                        <tr>
+                            <td>Severity</td>
+                            <td><span class="opt-badge">Default: Low</span></td>
+                            <td>Risk level of the detection. Options: <span class="badge badge-critical">Critical</span> <span class="badge badge-high">High</span> <span class="badge badge-medium">Medium</span> <span class="badge badge-low">Low</span></td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td><span class="opt-badge">Default: Draft</span></td>
+                            <td>Lifecycle stage of the rule. Options: <span class="badge badge-draft">Draft</span> <span class="badge badge-testing">Testing</span> <span class="badge badge-production">Production</span> <span class="badge badge-deprecated">Deprecated</span></td>
+                        </tr>
+                        <tr>
+                            <td>Created Date</td>
+                            <td><span class="opt-badge">Default: Today</span></td>
+                            <td>Date the rule was originally created. Defaults to today's date.</td>
+                        </tr>
+                        <tr>
+                            <td>Modified Date</td>
+                            <td><span class="opt-badge">Default: Today</span></td>
+                            <td>Date of the last modification. Update this when editing the rule.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Filtering Rules -->
+            <div id="filtering-rules" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                    Filtering &amp; Searching Rules
+                </h2>
+                <p>The filter panel on the Detection Rules page lets you narrow down the rules table using multiple criteria simultaneously. Active filters are shown as tags below the filter panel.</p>
+
+                <div class="help-subsection">
+                    <h3>Search Bar</h3>
+                    <p>Full-text search across <strong>Rule Name</strong> and <strong>MITRE Technique</strong> fields. Supports partial matches.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Dropdown Filters</h3>
+                    <ul>
+                        <li><strong>Customer</strong> — Filter rules belonging to a specific customer</li>
+                        <li><strong>SIEM</strong> — Filter rules by the customer's SIEM platform</li>
+                        <li><strong>Tactic</strong> — Filter by MITRE ATT&amp;CK tactic (all 14 tactics available)</li>
+                        <li><strong>Severity</strong> — Filter by severity: Critical, High, Medium, or Low</li>
+                        <li><strong>Status</strong> — Filter by lifecycle status: Draft, Testing, Production, or Deprecated</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Date Range Filters</h3>
+                    <ul>
+                        <li><strong>Created From → To</strong> — Filter rules by Created Date range</li>
+                        <li><strong>Modified From → To</strong> — Filter rules by Modified Date range</li>
+                    </ul>
+                    <p>You can set only a start date, only an end date, or both to define a range.</p>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Text Filters</h3>
+                    <ul>
+                        <li><strong>Created By</strong> — Partial match search on the Created By field</li>
+                        <li><strong>Modified By</strong> — Partial match search on the Modified By field</li>
+                        <li><strong>MITRE Technique</strong> — Partial match search on the Technique field</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Applying and Clearing Filters</h3>
+                    <ul>
+                        <li>Click <strong>"Filter"</strong> to apply the selected criteria</li>
+                        <li>Click <strong>"Clear All"</strong> (appears when filters are active) to reset all filters</li>
+                        <li>The result counter <em>"Showing X of Y rules"</em> updates to reflect active filters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Managing Settings -->
+            <div id="managing-settings" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15"></path></svg>
+                    Settings
+                </h2>
+                <p>Settings contains two tabs: <strong>SIEM Platforms</strong> and <strong>Customers</strong>. Configure these before creating any rules.</p>
+
+                <div class="help-subsection">
+                    <h3>SIEM Platforms</h3>
+                    <p>Manage the list of SIEM solutions used in your environment.</p>
+                    <ul>
+                        <li><strong>Add</strong> — Click "Add Platform", enter a name (e.g., Elastic, Splunk, Microsoft Sentinel), and click Save</li>
+                        <li><strong>Edit</strong> — Click the pencil icon on a platform row to rename it</li>
+                        <li><strong>Delete</strong> — Click the trash icon. Deletion is blocked if any Customer is still assigned to this platform</li>
+                    </ul>
+                    <div class="warn-box"><strong>Note:</strong> Deleting a SIEM platform that has customers assigned will show an error message. Remove or reassign all customers from that platform first.</div>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Customers</h3>
+                    <p>Manage customer profiles. Each customer is assigned to exactly one SIEM platform.</p>
+                    <ul>
+                        <li><strong>Add</strong> — Click "Add Customer", enter a name and select a SIEM platform, then click Save</li>
+                        <li><strong>Edit</strong> — Click the pencil icon to update a customer's name or SIEM assignment</li>
+                        <li><strong>Delete</strong> — Click the trash icon. Deletion is blocked if any Detection Rule references this customer</li>
+                    </ul>
+                    <div class="warn-box"><strong>Note:</strong> Deleting a customer that has rules assigned will show an error message. Delete or reassign all rules for that customer first.</div>
+                </div>
+            </div>
+
+            <!-- Status Workflow -->
+            <div id="rule-status-workflow" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                    Rule Status Workflow
+                </h2>
+                <p>Each rule moves through a lifecycle. Status is updated manually via the Edit Rule form.</p>
+
+                <div class="status-flow">
+                    <span class="badge badge-draft">Draft</span>
+                    <span class="arrow">→</span>
+                    <span class="badge badge-testing">Testing</span>
+                    <span class="arrow">→</span>
+                    <span class="badge badge-production">Production</span>
+                    <span class="arrow">→</span>
+                    <span class="badge badge-deprecated">Deprecated</span>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Status Descriptions</h3>
+                    <ul>
+                        <li><strong>Draft</strong> — Rule is being written or refined. Not yet deployed to SIEM. Use this when first creating a rule.</li>
+                        <li><strong>Testing</strong> — Rule is deployed in a test or staging SIEM environment. Validate for false positives and logic correctness before promoting.</li>
+                        <li><strong>Production</strong> — Rule is live and actively detecting threats in production SIEM. Detection logic must be complete and verified.</li>
+                        <li><strong>Deprecated</strong> — Rule has been retired. Kept for historical reference. No longer active in SIEM.</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">Status does not automatically change — you must edit the rule and update it manually. This gives full control over the promotion process.</div>
+            </div>
+
+            <!-- Best Practices -->
+            <div id="best-practices" class="help-section">
+                <h2>
+                    <svg class="help-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    Best Practices
+                </h2>
+
+                <div class="help-subsection">
+                    <h3>Naming Rules</h3>
+                    <ul>
+                        <li>Use a consistent naming pattern, e.g.: <code style="font-family: var(--font-mono); font-size: 12px;">[Tactic] - [Threat] - [Platform]</code></li>
+                        <li>Be specific — "Brute Force Login via SSH" is better than "Login Detection"</li>
+                        <li>Avoid abbreviations that are not widely understood</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>MITRE ATT&amp;CK Mapping</h3>
+                    <ul>
+                        <li>Always fill in Tactic and Technique when the threat maps to ATT&amp;CK — it enables structured filtering</li>
+                        <li>Use the official technique ID format: <code style="font-family: var(--font-mono); font-size: 12px;">T1078</code> for techniques, <code style="font-family: var(--font-mono); font-size: 12px;">T1078.001</code> for sub-techniques</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Detection Logic</h3>
+                    <ul>
+                        <li>Write the query in the syntax of the target SIEM (SPL for Splunk, KQL for Elastic/Sentinel, etc.)</li>
+                        <li>Include comments in the logic to explain non-obvious conditions</li>
+                        <li>Test the query in the SIEM before promoting to Production status</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Audit Trail</h3>
+                    <ul>
+                        <li>Always fill in <strong>Created By</strong> when adding a rule</li>
+                        <li>Update <strong>Modified By</strong> and <strong>Modified Date</strong> every time you edit a rule — this keeps the audit trail accurate</li>
+                    </ul>
+                </div>
+
+                <div class="help-subsection">
+                    <h3>Status Progression</h3>
+                    <ol>
+                        <li>Create the rule in <strong>Draft</strong> — write and refine the detection logic</li>
+                        <li>Promote to <strong>Testing</strong> — deploy to staging SIEM and monitor for false positives</li>
+                        <li>Promote to <strong>Production</strong> — only after validation is complete</li>
+                        <li>Move to <strong>Deprecated</strong> — when a rule is replaced or no longer relevant (do not delete, keep for history)</li>
+                    </ol>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
